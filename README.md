@@ -2,7 +2,7 @@
 
 a lambda function that randomly chooses a running EC2 server and terminates it
 
-## Getting started
+## Getting started
 
 1. Generate the package
    
