@@ -2,7 +2,8 @@
 
 const AWS = require('aws-sdk')
 var _ = require('lodash')
-const ec2 = new AWS.EC2({region: 'eu-west-3'})
+const awsRegion = process.env.EC2_AWS_REGION;
+const ec2 = new AWS.EC2({region: awsRegion})
 
 exports.handler = async (event) => {
   console.log('Processing event: ', event)
@@ -10,7 +11,7 @@ exports.handler = async (event) => {
   const reservations = await getReservations()
   const allInstances = _.flatMap(reservations, (reservation) => reservation.Instances)
 
-  console.log('Current instances running: ', allInstances)
+  console.log(`Current EC2 instances running in region ${awsRegion} :`, allInstances)
 
   if (allInstances.length === 0) {
     console.log('No instances to terminate', allInstances)
